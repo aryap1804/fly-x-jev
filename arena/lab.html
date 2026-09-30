@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fly × Jev · Memory Lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="lab.css" />
+  <script type="importmap">
+    {"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}
+  </script>
+</head>
+<body class="lab">
+  <header id="lab-top">
+    <h1>Fly <em>×</em> Jev</h1>
+    <div class="sub">Memory Lab · classic fly experiments on real mushroom-body wiring</div>
+  </header>
+
+  <div id="caption"></div>
+
+  <!-- experiment picker + what the experiment asks -->
+  <aside id="exps" class="card">
+    <section class="sec">
+      <div class="kicker">Experiments</div>
+      <ol id="exp-list"></ol>
+    </section>
+    <section class="sec" id="exp-info">
+      <div class="kicker" id="exp-cite">—</div>
+      <div id="exp-q"></div>
+      <ol id="exp-steps"></ol>
+    </section>
+  </aside>
+
+  <!-- every dot is one real KC→MBON synapse -->
+  <main id="syn" class="card">
+    <header class="card-head">
+      <div>
+        <div class="kicker">Synapse map · <span id="syn-who">fly</span></div>
+        <div class="t">Every dot is one real Kenyon cell → output neuron synapse</div>
+      </div>
+      <div class="legend">
+        <span><i class="dot"></i>synapse (size = real synapse count)</span>
+        <span><i class="dot faded"></i><i class="dot faded h"></i>weakened by pain / sugar dopamine</span>
+        <span><i class="dot ring"></i>Kenyon cell shared by both smells</span>
+      </div>
+    </header>
+    <canvas id="syn-canvas"></canvas>
+  </main>
+
+  <!-- connectome + result -->
+  <aside id="side">
+    <section id="brain-card" class="card">
+      <header class="card-head"><div><div class="kicker">Connectome</div><div class="t">MaleCNS v1.0 · mushroom body</div></div></header>
+      <div class="pop-canvas"><canvas id="brain-canvas"></canvas><div id="brain-labels"></div></div>
+    </section>
+    <section id="result" class="card">
+      <div class="kicker">What Jev would read</div>
+      <div id="res-body"></div>
+    </section>
+  </aside>
+
+  <!-- valence over time -->
+  <section id="trace" class="card">
+    <header class="card-head">
+      <div class="kicker">Memory over time <span id="trace-legend"></span></div>
+      <div class="ctl">
+        <button data-cmd="play" class="dbtn play"><span>Play</span></button>
+        <button data-cmd="restart" class="dbtn">Restart</button>
+        <button data-cmd="speed" class="dbtn" id="speed-btn">1×</button>
+      </div>
+    </header>
+    <canvas id="trace-canvas"></canvas>
+  </section>
+
+  <div id="loader"><h1>Fly <em>×</em> Jev</h1><div class="ld">loading connectome</div></div>
+  <script type="module" src="js/lab.js"></script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+/* Memory Lab: same paper / ink / accent language as the arena, laid out as a grid. */
+
+body.lab {
+  display: grid; height: 100vh; gap: 18px; padding: 26px 34px 28px;
+  grid-template-columns: 330px minmax(0, 1fr) 380px;
+  grid-template-rows: 64px minmax(0, 1fr) 240px;
+  grid-template-areas: "top . ." "exps syn side" "exps trace trace";
+}
+#lab-top { grid-area: top; }
+#lab-top h1 { font-weight: 700; font-size: 44px; line-height: 1; letter-spacing: -0.045em; }
+#lab-top h1 em { color: var(--accent); font-style: normal; font-weight: 400; margin: 0 1px; }
+#lab-top .sub { margin-top: 6px; font-size: 13px; color: var(--dim); white-space: nowrap; }
+body.lab #caption { top: 30px; max-width: min(820px, 52vw); }
+
+.card-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 16px 20px 0; }
+.card-head .t { margin-top: 6px; font-size: 17px; font-weight: 700; letter-spacing: -0.02em; }
+
+/* ---------- experiments ---------- */
+#exps { grid-area: exps; display: flex; flex-direction: column; overflow: hidden; }
+#exp-list { list-style: none; display: grid; gap: 2px; margin-top: 10px; counter-reset: e; }
+#exp-list li { counter-increment: e; display: grid; grid-template-columns: 22px 1fr; gap: 8px; align-items: baseline; padding: 8px 10px; margin: 0 -10px; border-radius: 10px; cursor: pointer; font-size: 14.5px; font-weight: 500; transition: background 0.15s; }
+#exp-list li::before { content: counter(e); font-family: var(--mono); font-size: 12px; color: var(--faint); }
+#exp-list li:hover { background: rgba(28, 28, 28, 0.04); }
+#exp-list li.on { background: var(--ink); color: #f4f3ef; }
+#exp-list li.on::before { color: var(--accent); }
+#exp-list li small { display: block; font-size: 12px; font-weight: 400; color: var(--dim); margin-top: 1px; }
+#exp-list li.on small { color: rgba(244, 243, 239, 0.6); }
+#exp-info { flex: 1; min-height: 0; overflow: auto; }
+#exp-q { margin-top: 8px; font-size: 15px; font-weight: 600; line-height: 1.4; letter-spacing: -0.01em; }
+#exp-steps { list-style: none; margin-top: 12px; display: grid; gap: 4px; }
+#exp-steps li { position: relative; padding-left: 16px; font-size: 13px; line-height: 1.4; color: var(--faint); transition: color 0.3s; }
+#exp-steps li::before { content: ""; position: absolute; left: 2px; top: 6px; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+#exp-steps li.done { color: var(--dim); }
+#exp-steps li.now { color: var(--ink); font-weight: 600; }
+#exp-steps li.now::before { background: var(--accent); }
+
+/* ---------- synapse map ---------- */
+#syn { grid-area: syn; display: flex; flex-direction: column; min-height: 0; overflow: hidden; }
+#syn-canvas { flex: 1; min-height: 0; width: 100%; display: block; }
+.legend { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 4px 14px; max-width: 420px; font-size: 11.5px; color: var(--dim); }
+.legend span { display: flex; align-items: center; gap: 6px; white-space: nowrap; }
+.legend .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ink); }
+.legend .dot.faded { background: var(--accent); opacity: 0.75; }
+.legend .dot.faded.h { background: var(--honey); margin-left: -3px; }
+.legend .dot.ring { background: none; box-shadow: inset 0 0 0 1.5px #4a6fa5; }
+
+/* ---------- right column ---------- */
+#side { grid-area: side; display: grid; grid-template-rows: minmax(0, 1fr) auto; gap: 18px; min-height: 0; }
+#brain-card { display: flex; flex-direction: column; overflow: hidden; min-height: 0; }
+#result { padding: 16px 20px 18px; }
+#res-body { margin-top: 10px; display: grid; gap: 12px; }
+.rrow .row { font-size: 14px; }
+.rrow .who { font-size: 11.5px; color: var(--dim); font-family: var(--mono); }
+.rrow .txt { font-size: 13.5px; font-weight: 600; color: var(--dim); }
+.rrow .txt.avoid { color: var(--accent); }
+.rrow .txt.approach { color: var(--honey); }
+.rrow .track .knob.ghost { background: transparent; box-shadow: inset 0 0 0 1.5px var(--dim); }
+.verdict { margin-top: 2px; padding-top: 12px; border-top: 1px dashed var(--hair); font-size: 13.5px; line-height: 1.45; color: var(--ink-2); }
+.verdict em { font-style: normal; color: var(--accent); font-weight: 600; }
+
+/* ---------- trace ---------- */
+#trace { grid-area: trace; display: flex; flex-direction: column; overflow: hidden; }
+#trace .card-head { align-items: center; padding-top: 12px; }
+#trace-legend { margin-left: 12px; letter-spacing: 0; text-transform: none; font-weight: 500; font-size: 12px; }
+#trace-legend b { font-weight: 600; margin-left: 10px; }
+#trace-canvas { flex: 1; min-height: 0; width: 100%; display: block; }
+#trace .ctl { display: flex; gap: 4px; padding: 4px; background: var(--ink); border-radius: 14px; }
+#trace .dbtn { height: 34px; padding: 0 14px; border-radius: 10px; font-size: 14px; }
+#trace .dbtn.play { padding: 0 16px; }
+
+@media (max-width: 1400px) {
+  body.lab { grid-template-columns: 290px minmax(0, 1fr) 320px; padding: 20px 24px; gap: 14px; }
+  #lab-top h1 { font-size: 36px; }
+  .legend { display: none; }
+}
